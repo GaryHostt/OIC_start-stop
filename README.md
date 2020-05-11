@@ -1,4 +1,9 @@
 # OIC_start-stop
+
+<p align="center">
+  <img src="https://github.com/GaryHostt/OIC_start-stop/blob/master/1.jpg?raw=true" alt="OIC"/>
+</p>
+
 This shows how to use the OCI API to start and stop your OIC instance.
 
 For more information on Oracle Integration, click [here](https://garyhostt.github.io/Oracle_Integration/).
