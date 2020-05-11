@@ -1,5 +1,5 @@
 
-
+#Documentation located at: https://garyhostt.github.io/OIC_start-stop/
 import requests
 import oci
 from oci.config import validate_config
@@ -8,75 +8,162 @@ from datetime import date, time, datetime
 import time
 import sys
 
-# OCI SDK config 
+# Custom Signed header request work
+#Verify the file location below is where you placed your API key
+with open("$HOME/.oci/oci_api_key.pem") as f:
+    private_key = f.read().strip()
 
-config = oci.config.from_file(
-	"/Users/aamacdon/.oci/config",
-"DEFAULT")
-identity = oci.identity.IdentityClient(config)
-user = identity.get_user(config["user"]).data
-#print(user)
+api_key = "/".join([
+    #in the parenthesis below, input yoru tenancy's root compartment's OCID
+    "",
+    #in the quotes below, input the OCID for the user
+    "",
+    #in these quotes below, paste your API key fingerprint
+    ""
+])
+#print(api_key)
+
+# Universal signed header request work, leave stuff between here and line 107 alone
+import base64
+import email.utils
+import hashlib
+import httpsig_cffi.sign
+import requests
+import six
+
+class SignedRequestAuth(requests.auth.AuthBase):
+    """A requests auth instance that can be reused across requests"""
+    generic_headers = [
+        "date",
+        "(request-target)",
+        "host"
+    ]
+    body_headers = [
+        "content-length",
+        "content-type",
+        "x-content-sha256",
+    ]
+    required_headers = {
+        "get": generic_headers,
+        "head": generic_headers,
+        "delete": generic_headers,
+        "put": generic_headers + body_headers,
+        "post": generic_headers + body_headers
+    }
+
+    def __init__(self, key_id, private_key):
+        # Build a httpsig_cffi.requests_auth.HTTPSignatureAuth for each
+        # HTTP method's required headers
+        self.signers = {}
+        for method, headers in six.iteritems(self.required_headers):
+            signer = httpsig_cffi.sign.HeaderSigner(
+                key_id=key_id, secret=private_key,
+                algorithm="rsa-sha256", headers=headers[:])
+            use_host = "host" in headers
+            self.signers[method] = (signer, use_host)
+
+    def inject_missing_headers(self, request, sign_body):
+        # Inject date, content-type, and host if missing
+        request.headers.setdefault(
+            "date", email.utils.formatdate(usegmt=True))
+        request.headers.setdefault("content-type", "application/json")
+        request.headers.setdefault(
+            "host", six.moves.urllib.parse.urlparse(request.url).netloc)
+
+        # Requests with a body need to send content-type,
+        # content-length, and x-content-sha256
+        if sign_body:
+            body = request.body or ""
+            if "x-content-sha256" not in request.headers:
+                m = hashlib.sha256(body.encode("utf-8"))
+                base64digest = base64.b64encode(m.digest())
+                base64string = base64digest.decode("utf-8")
+                request.headers["x-content-sha256"] = base64string
+            request.headers.setdefault("content-length", len(body))
+
+    def __call__(self, request):
+        verb = request.method.lower()
+        # nothing to sign for options
+        if verb == "options":
+            return request
+        signer, use_host = self.signers.get(verb, (None, None))
+        if signer is None:
+            raise ValueError(
+                "Don't know how to sign request verb {}".format(verb))
+
+        # Inject body headers for put/post requests, date for all requests
+        sign_body = verb in ["put", "post"]
+        self.inject_missing_headers(request, sign_body=sign_body)
+
+        if use_host:
+            host = six.moves.urllib.parse.urlparse(request.url).netloc
+        else:
+            host = None
+
+        signed_headers = signer.sign(
+            request.headers, host=host,
+            method=request.method, path=request.path_url)
+        request.headers.update(signed_headers)
+        return request
 
 ## Time work
 today = datetime.now() 
 NewText = today.strftime("%A, %d. %B %Y %I:%M%p")
 
-## announcements test
-
-def announcements():
-	url = "https://announcements.us-ashburn-1.oraclecloud.com/20180904/announcements"
-	payload  = {}
-	headers = {
-  	'Content-Type': 'application/json'
-	}
-	print(url)
-	response = requests.request("GET", url, headers=headers, data = payload)
-	print(response.text.encode('utf8'))
-
 # API calls in functions
 
+def announcements():
+    print("Please input the OCID of the root compartment in your tenancy, and then press enter.")
+    ID = input("")
+    auth = SignedRequestAuth(api_key, private_key)
+    #print(auth)
+    url = "https://announcements.us-ashburn-1.oraclecloud.com/20180904/announcements?compartmentId=" + ID
+    payload  = {}
+    headers = {
+    'Content-Type': 'application/json'
+    }
+    response = requests.request("GET", url, auth = auth, headers=headers, data = payload)
+    print(response.text.encode('utf8'))
+
 def start_input():
-	#print(user)
-	print("Please input the OCID of your tenancy, and then press enter.")
+	print("Please input the OCID of your OIC Instance, and then press enter.")
 	ID = input("")
-	print ("Instance with OCID: " + ID + " is now stopping.")
+	auth = SignedRequestAuth(api_key, private_key)
+	print ("Instance with OCID: " + ID + " is now starting.")
 	#print (ID)
 	url = "https://integration.us-ashburn-1.ocp.oraclecloud.com/20190131/integrationInstances/" + ID + "/actions/start"
 	payload  = {}
 	headers = {
   	'Content-Type': 'application/json'
 	}
-	print(url)
-	response = requests.request("POST", url, headers=headers, data = payload)
 	#print(url)
-	print("The response from the OCI API is below:")
-	print(response.text.encode('utf8'))
+	response = requests.request("POST", url, auth = auth, headers=headers, data = payload)
+	print("The response code from the OCI API is below:")
+	print(response.status_code)
 
 def stop_input():
-	print("Please input the OCID of your tenancy, and then press enter.")
+	print("Please input the OCID of your OIC Instance, and then press enter.")
 	ID = input("")
+	auth = SignedRequestAuth(api_key, private_key)
 	print ("Instance with OCID: " + ID + " is now stopping.")
 	url = "https://integration.us-ashburn-1.ocp.oraclecloud.com/20190131/integrationInstances/" + ID + "/actions/stop"
-
 	payload  = {}
 	headers = {
   	'Content-Type': 'application/json'
 	}
 
-	response = requests.request("POST", url, headers=headers, data = payload)
-	print("The response from the OCI API is below:")
+	response = requests.request("POST", url, auth=auth, headers=headers, data = payload)
+	print("The response code from the OCI API is below:")
 	print(response.status_code)
-	print(response.text.encode('utf8'))
 
 # Running the program
 i = 0
 while True:
-	validate_config(config)
-	print(config)
 	count = 0
-	print("Hello user, input 1 and press enter to start your OIC instance, and input 2 to stop your instance.")
+	print("Hello user, input 1 and press enter to start your OIC instance, input 2 to stop your instance, and input 3 to see announcements.")
 	answer = input("")
 	i += 1
+	print("You have choosen option " + answer + ".")
 	#print(answer)
 	if answer == "1":
 		print("You have choosen to start the instance.")
@@ -86,7 +173,6 @@ while True:
 		stop_input()
 	if answer == "3":
 		announcements()
-	print(i)
 	if i == 1:
 		print("Thank you for using the OCI API today, good bye.")
 		break
