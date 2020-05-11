@@ -2,7 +2,7 @@
 #Documentation located at: https://garyhostt.github.io/OIC_start-stop/
 import requests
 import oci
-from oci.config import validate_config
+
 import datetime
 from datetime import date, time, datetime
 import time
