@@ -28,18 +28,18 @@ After configuring your credentials, once you run the script, simply enter 1, 2, 
 
 ## Where to find your tenancy OCID
 
-![](5.jpg)
+![](5.png)
 From the OCI console, click the top left hamburger menu, navigate to identity, then compartments. Click your root compartment.
 
-![](6.jpg)
+![](6.png)
 Now copy the OCID from the details screen.
 
 ## Where to find your OIC OCID
 
-![](3.jpg)
+![](3.png)
 From the OCI console, navigate to Application Integration. Click on your instance. 
 
-![](4.jpg)
+![](4.png)
 This is where you can copy your OCID that is to be inputted with the script prompt. 
 
 
