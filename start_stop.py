@@ -159,7 +159,6 @@ def stop_input():
 # Running the program
 i = 0
 while True:
-	count = 0
 	print("Hello user, input 1 and press enter to start your OIC instance, input 2 to stop your instance, and input 3 to see announcements.")
 	answer = input("")
 	i += 1
@@ -176,6 +175,3 @@ while True:
 	if i == 1:
 		print("Thank you for using the OCI API today, good bye.")
 		break
-
-
-	
