@@ -4,7 +4,7 @@
   <img src="https://github.com/GaryHostt/OIC_start-stop/blob/master/2.jpg?raw=true" alt="OIC"/>
 </p>
 
-This shows how to use the OCI API to start & stop your OIC instance, and get announcements.
+This python script, start_stop.py, uses the OCI API to start & stop your OIC instance, and get announcements.
 
 For more information on Oracle Integration, click [here](https://garyhostt.github.io/Oracle_Integration/).
 
@@ -16,6 +16,8 @@ In order to authenticate the API calls to OCI, we use [signing requests](https:/
 
 This script also calls the [announcements API](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/announcements/0.0.1/).
 
-This script is made for instances in the Ashburn region, if your's is located elsewhere, please see this [documentation](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/integration/20190131/). You will then need to change the code on lines 120, 134, and 149.
+This script is made for instances in the Ashburn region, if your instance is located elsewhere, please see this [documentation](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/integration/20190131/). You will then need to change the code on lines 120, 134, and 149.
 - [StartInstance endpoint](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/integration/20190131/IntegrationInstance/StartIntegrationInstance)
 - [StopInstance endpoint](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/integration/20190131/IntegrationInstance/StopIntegrationInstance)
+
+After configuring your credentials, once you run the script, simply enter 1, 2, or 3. Then paste your relevant OCIDs.
