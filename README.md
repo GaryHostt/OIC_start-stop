@@ -10,6 +10,8 @@ This python script, [start_stop.py](https://github.com/GaryHostt/OIC_start-stop/
 
 For more information on Oracle Integration, click [here](https://garyhostt.github.io/Oracle_Integration/).
 
+You can also accomplish this task with Postman, the beginning of which is detailed [here](https://redthunder.blog/2019/07/10/calling-oci-apis-from-postman/) & [here](https://www.ateam-oracle.com/invoking-oci-rest-apis-using-postman).
+
 ## How to use
 
 First, your tenancy must have a [configured user that can call the OCI API, with an API key](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm). Next, that user needs to have the [USE permission in IAM](https://docs.oracle.com/en/cloud/paas/integration-cloud/oracle-integration-oci/iam-policy-permissions.html) for OIC.
