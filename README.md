@@ -1,7 +1,7 @@
 # OIC_start-stop
 
 <p align="center">
-  <img src="https://github.com/GaryHostt/OIC_start-stop/blob/master/1.jpg?raw=true" alt="OIC"/>
+  <img src="https://github.com/GaryHostt/OIC_start-stop/blob/master/2.jpg?raw=true" alt="OIC"/>
 </p>
 
 This shows how to use the OCI API to start & stop your OIC instance, and get announcements.
