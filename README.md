@@ -42,5 +42,16 @@ From the OCI console, navigate to Application Integration. Click on your instanc
 ![](4.png)
 This is where you can copy your OCID that is to be inputted with the script prompt. 
 
+## Troubleshooting
+
+If it's your first time running the script, you may get an error such as:
+```
+ModuleNotFoundError: No module named 'httpsig_cffi'
+```
+Run:
+```
+pip install httpsig_cffi
+```
+Or whatever module you may be missing. 
 
 
