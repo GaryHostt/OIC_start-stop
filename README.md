@@ -28,7 +28,7 @@ This script is made for instances in the Ashburn region, if your instance is loc
 
 After configuring your credentials, once you run the script, simply enter 1, 2, or 3. Then paste your relevant OCIDs.
 
-## Where to find your tenancy OCID
+### Where to find your tenancy OCID
 
 ![](5.png)
 From the OCI console, click the top left hamburger menu, navigate to identity, then compartments. Click your root compartment.
@@ -36,7 +36,7 @@ From the OCI console, click the top left hamburger menu, navigate to identity, t
 ![](6.png)
 Now copy the OCID from the details screen.
 
-## Where to find your OIC OCID
+### Where to find your OIC OCID
 
 ![](3.png)
 From the OCI console, navigate to Application Integration. Click on your instance. 
@@ -44,7 +44,7 @@ From the OCI console, navigate to Application Integration. Click on your instanc
 ![](4.png)
 This is where you can copy your OCID that is to be inputted with the script prompt. 
 
-## Troubleshooting
+### Troubleshooting
 
 If it's your first time running the script, you may get an error such as:
 ```
@@ -55,5 +55,7 @@ Run:
 pip install httpsig_cffi
 ```
 Or whatever module you may be missing. 
+
+If you are having problems generating API PEM keys for your IAM user, you can use this [link](https://www.oci-workshop.com/keys/) to generate your PEM keys.
 
 
