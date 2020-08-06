@@ -32,6 +32,12 @@ After configuring your credentials, once you run the script, simply enter 1, 2, 
 
 This is a flask deployment, an alternative to the manual entry above. You can use scheduled API calls to this flask API to start & stop OIC instead of manually using start_stop.py. You can use this [cron package for GO](https://github.com/jasonlvhit/gocron) like I do in this [repo](https://github.com/GaryHostt/DailyNewsText).
 
+You will need to change the following lines:
+
+39, 53, 67, 79, 84, 86, 88 
+
+If outside of the Ashburn region, also change lines 42, 56, and 69.
+
 ### Where to find your tenancy OCID
 
 ![](5.png)
