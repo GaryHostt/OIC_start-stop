@@ -46,7 +46,7 @@ kill #
 ```
 39, 53, 67, 79, 84, 86, 88 
 ```
-If you are outside of the Ashburn region, also change lines 42, 56, and 69.
+If you are outside of the Ashburn region, also change lines 42, 56, and 69. You will need to deploy the flask API and go cron job to your infrastructure of choice. You cannot use OIC to start itself by calling the flask API, as it will already be off. 
 
 ### Where to find your tenancy OCID
 
