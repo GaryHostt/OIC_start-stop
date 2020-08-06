@@ -28,15 +28,25 @@ This script is made for instances in the Ashburn region, if your instance is loc
 
 After configuring your credentials, once you run the script, simply enter 1, 2, or 3. Then paste your relevant OCIDs.
 
-## How to use flask.py
+## How to use flask.py & schedule.go
 
-This is a flask deployment, an alternative to the manual entry above. You can use scheduled API calls to this flask API to start & stop OIC instead of manually using start_stop.py. You can use this [cron package for GO](https://github.com/jasonlvhit/gocron) like I do in this [repo](https://github.com/GaryHostt/DailyNewsText).
-
-You will need to change the following lines:
-
+This is a flask deployment, an alternative to the manual entry above. You can use scheduled API calls to this flask API to start & stop OIC instead of manually using start_stop.py. You can use this [cron package for GO](https://github.com/jasonlvhit/gocron) like I do in this [repo](https://github.com/GaryHostt/DailyNewsText). The schedule.go file forms a basis for background scheduled API calls. After running the 'go get' and setting your $GOROOT, you can run:
+```
+nohup go run schedule.go &
+```
+To stop the scheduled API calls, run:
+```
+ps -ef | grep go
+```
+And then:
+```
+kill #
+```
+***You will need to change the following lines:***
+```
 39, 53, 67, 79, 84, 86, 88 
-
-If outside of the Ashburn region, also change lines 42, 56, and 69.
+```
+If you are outside of the Ashburn region, also change lines 42, 56, and 69.
 
 ### Where to find your tenancy OCID
 
