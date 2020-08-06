@@ -12,7 +12,7 @@ For more information on Oracle Integration, click [here](https://garyhostt.githu
 
 You can also accomplish this task with Postman, the beginning of which is detailed [here](https://redthunder.blog/2019/07/10/calling-oci-apis-from-postman/) & [here](https://www.ateam-oracle.com/invoking-oci-rest-apis-using-postman).
 
-## How to use
+## How to use start_stop.py
 
 First, your tenancy must have a [configured user that can call the OCI API, with an API key](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm). Next, that user needs to have the [USE permission in IAM](https://docs.oracle.com/en/cloud/paas/integration-cloud/oracle-integration-oci/iam-policy-permissions.html) for OIC.
 
@@ -27,6 +27,10 @@ This script is made for instances in the Ashburn region, if your instance is loc
 - [StopInstance endpoint](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/integration/20190131/IntegrationInstance/StopIntegrationInstance)
 
 After configuring your credentials, once you run the script, simply enter 1, 2, or 3. Then paste your relevant OCIDs.
+
+## How to use flask.py
+
+This is a flask deployment, an alternative to the manual entry above. You can use scheduled API calls to this flask API to start & stop OIC instead of manually using start_stop.py. You can use this [cron package for GO](https://github.com/jasonlvhit/gocron) like I do in this [repo](https://github.com/GaryHostt/DailyNewsText).
 
 ### Where to find your tenancy OCID
 
