@@ -14,6 +14,12 @@ You can also accomplish this task with Postman, the beginning of which is detail
 
 You can run this flask API & cron job for [free on OCI compute](https://www.oracle.com/cloud/free/).
 
+## Why do this
+
+For your dev & test instances of OIC - you are not constantly in these systems using them. While these instances are stopped - you are not billed for them (up to 480 hours/744 total hours per month). So you can reduce your bill for your dev/test instances of OIC.
+
+Do not this for your production instance of OIC as your integrations will not work while the instance is stopped! For more information, see [page 98](http://www.oracle.com/us/corporate/contracts/paas-iaas-universal-credits-3940775.pdf).
+
 ## How to use start_stop.py
 
 First, your tenancy must have a [configured user that can call the OCI API, with an API key](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm). Next, that user needs to have the [USE permission in IAM](https://docs.oracle.com/en/cloud/paas/integration-cloud/oracle-integration-oci/iam-policy-permissions.html) for OIC.
