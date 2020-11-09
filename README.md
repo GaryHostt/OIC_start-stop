@@ -16,7 +16,7 @@ You can run this flask API & cron job for [free on OCI compute](https://www.orac
 
 ## Why do this
 
-For your dev & test instances of OIC - you are not constantly in these systems using them. While these instances are stopped - you are not billed for them (up to 480 hours/744 total hours per month). So you can reduce your bill for your dev/test instances of OIC.
+For your dev & test instances of OIC - you are not constantly in these systems using them. While these instances are stopped - you are not billed for them (up to 480 hours/744 total hours per month). So you can reduce your bill for your dev/test instances of OIC. **Note:** if you only have 1 OIC instance, stopping it won't save you any money.
 
 Do not this for your production instance of OIC as your integrations will not work while the instance is stopped! For more information, see [page 98](http://www.oracle.com/us/corporate/contracts/paas-iaas-universal-credits-3940775.pdf).
 
