@@ -14,7 +14,7 @@ You can also accomplish this task with Postman, the beginning of which is detail
 
 You can run this flask API & cron job for [free on OCI compute](https://www.oracle.com/cloud/free/).
 
-## Why do this
+## Why do this (the information below is subject to change - verify with your Oracle contact)
 
 For your dev & test instances of OIC - you are not constantly in these systems using them. While these instances are stopped - you are not billed for them (up to 480 hours/744 total hours per month). So you can reduce your bill for your dev/test instances of OIC. **Note:** if you only have 1 OIC instance, stopping it won't save you any money.
 
